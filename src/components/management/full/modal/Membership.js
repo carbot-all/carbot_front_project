@@ -1,74 +1,76 @@
-import React, { useState } from 'react';
-import './Membership.css';
-import CarInfo from './CarInfo';
+import React, { useEffect, useState } from "react";
+import "./Membership.css";
+import axios from "axios";
 
-const Membership = ({ member, onClose }) => {
-  const [showCarInfo, setShowCarInfo] = useState(false);
+const Membership = ({ customer, onClose }) => {
+  const [detailedInfo, setDetailedInfo] = useState(null); // 추가 고객 정보 상태
 
-  const handleCarInfoOpen = () => setShowCarInfo(true);
-  const handleCarInfoClose = () => setShowCarInfo(false);
+  useEffect(() => {
+    // 추가 고객 정보를 가져오는 함수
+    const fetchDetailedInfo = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8001/detail/${customer.customer_id}`
+        );
+        setDetailedInfo(response.data.user); // 가져온 추가 정보 저장
+      } catch (error) {
+        console.error("Error fetching detailed customer info:", error);
+      }
+    };
+
+    fetchDetailedInfo();
+  }, [customer.customer_id]);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
         className="membership-modal-content"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 닫기 방지
       >
         <h2>상세조회</h2>
-        <p>상태: {member.status}</p>
+        <p>상태: {customer.status ? "활성" : "비활성"}</p>
         <table className="membership-details-table">
           <tbody>
             <tr>
               <td>아이디</td>
-              <td>{member.username}</td>
+              <td>{customer.customer_id}</td>
             </tr>
             <tr>
               <td>회원명</td>
-              <td>{member.name}</td>
+              <td>{customer.customer_name}</td>
             </tr>
             <tr>
               <td>이메일</td>
-              <td>{member.email}</td>
+              <td>{customer.customer_email || detailedInfo?.customer_email}</td>
             </tr>
             <tr>
               <td>가입 일자</td>
-              <td>{member.joinDate}</td>
+              <td>{new Date(customer.created_at).toLocaleDateString()}</td>
             </tr>
-            <tr>
-              <td>출생 연도</td>
-              <td>1990</td>
-            </tr>
-            <tr>
-              <td>성별</td>
-              <td>남</td>
-            </tr>
-            <tr>
-              <td>전화번호</td>
-              <td>010-1234-5678</td>
-            </tr>
-            <tr>
-              <td>거주지</td>
-              <td>서울</td>
-            </tr>
-            <tr>
-              <td>차량 보유 여부</td>
-              <td>
-                Y{' '}
-                <button onClick={handleCarInfoOpen} className="triangle-button">
-                  ▶
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>추천 받은 차량 정보</td>
-              <td>-</td>
-            </tr>
+            {/* 추가 정보를 표시하는 부분 */}
+            {detailedInfo && (
+              <>
+                <tr>
+                  <td>전화번호</td>
+                  <td>{detailedInfo.customer_phone}</td>
+                </tr>
+                <tr>
+                  <td>거주지</td>
+                  <td>{detailedInfo.customer_city}</td>
+                </tr>
+                <tr>
+                  <td>생년월일</td>
+                  <td>{detailedInfo.customer_birth}</td>
+                </tr>
+                <tr>
+                  <td>성별</td>
+                  <td>{detailedInfo.customer_gender}</td>
+                </tr>
+              </>
+            )}
           </tbody>
         </table>
         <button onClick={onClose}>닫기</button>
-
-        {/* 차량 정보 모달 */}
-        {showCarInfo && <CarInfo onClose={handleCarInfoClose} />}
       </div>
     </div>
   );
