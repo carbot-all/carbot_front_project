@@ -1,0 +1,92 @@
+.my-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button-group button {
+  position: relative;
+  padding: 10px 20px;
+  border: none;
+  background-color: transparent; /* 버튼 배경을 투명하게 설정 */
+  color: black;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.3s;
+  overflow: hidden;
+}
+
+.button-group button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.button-group button:hover::after {
+  transform: scaleX(1);
+}
+
+.button-group button.active::after {
+  transform: scaleX(1);
+  background-color: #000; /* 고정된 밑줄 색상 */
+}
+
+.button-group button:hover {
+  color: #000;
+}
+
+.mypage-content-area {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.mypage-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 100px;
+}
+
+/* 기존 차량 카드 스타일 */
+.mypage-card {
+  background-color: #fff;
+  width: 30%;
+  overflow: hidden;
+}
+
+.mypage-card img {
+  width: 100%;
+  height: auto;
+}
+
+.mypage-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.proposal-button {
+  width: 100%;
+  padding: 10px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
