@@ -52,15 +52,17 @@
   background-color: #555;
 }
 
-/* Birth-residence */
-.birth-residence-box {
+.join-select-box {
   display: flex;
+  justify-content: left;
   gap: 20px;
+  padding: 5px;
+  margin-bottom: 20px;
 }
 
 /* Checkbox group */
 .gender-box {
-  margin-bottom: 20px;
+  margin-top: 10px;
   padding: 5px;
 }
 .checkbox-group {
