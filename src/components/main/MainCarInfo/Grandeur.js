@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../../carinfo/CarInfo.css";
+import "../../carinfo/carInfo.css";
 import GrandeurImage from "../../../images/grandeur.png";
 
 const Grandeur = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Eximage from '../../images/genesis.png'; // 이미지 경로 설정
-import './Mypage.css';
+import './mypage.css';
 import Proposal from './modal/proposal';
 
 function MyPage() {

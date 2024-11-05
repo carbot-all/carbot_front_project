@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Join.css";
+import "./join.css";
 import { Link, useNavigate } from "react-router-dom";
 import TermsUse from "./AuthModal/TermsUse";
 import axios from "axios";

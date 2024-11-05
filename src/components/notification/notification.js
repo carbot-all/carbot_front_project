@@ -1,6 +1,6 @@
 // Notification.js
 import React, { useState } from 'react';
-import './Notification.css';
+import './notification.css';
 
 const Notification = () => {
   const [selectedNotice, setSelectedNotice] = useState(null);

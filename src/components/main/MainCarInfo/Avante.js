@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../../carinfo/CarInfo.css";
+import "../../carinfo/carInfo.css";
 import AvanteImage from "../../../images/avante.png";
 
 const Avante = () => {

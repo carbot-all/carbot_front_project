@@ -1,18 +1,18 @@
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Main from "./components/main/Main";
-import Notification from "./components/notification/Notification";
-import Login from "./components/auth/Login";
-import Join from "./components/auth/Join";
-import CarInfo from "./components/carinfo/CarInfo";
-import CarSelect from "./components/carselect/CarSelect";
+import Main from "./components/main/main";
+import Notification from "./components/notification/notification";
+import Login from "./components/auth/login";
+import Join from "./components/auth/join";
+import CarInfo from "./components/carinfo/carInfo";
+import CarSelect from "./components/carselect/carSelect";
 import Layout from "./components/Layout";
 import FindID from "./components/auth/set_id&pw/FindID";
 import FindPW from "./components/auth//set_id&pw/FindPW";
 import ResetPW from "./components/auth//set_id&pw/ResetPW";
-import Mypage from "./components/mypage/Mypage";
-import CallbotIcon from "./components/callbot/CallbotIcon";
+import Mypage from "./components/mypage/mypage";
+import CallbotIcon from "./components/callbot/callbotIcon";
 import AdminLogin from "./components/management/login/AdminLogin";
 import AdminDashboard from "./components/management/full/AdminDashboard";
 import Avante from "./components/main/MainCarInfo/Avante";

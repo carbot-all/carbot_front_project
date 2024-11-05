@@ -1,6 +1,6 @@
 // callbot.js
 import React from 'react';
-import './Callbot.css';
+import './callbot.css';
 
 const CallbotModal = ({ onClose }) => {
   return (

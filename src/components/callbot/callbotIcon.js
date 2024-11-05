@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CallbotModal from './modal/Callbot';
-import './CallbotIcon.css';
+import CallbotModal from './modal/callbot';
+import './callbotIcon.css';
 import botImage from './callbot_img.png';
 
 const CallbotIcon = () => {
