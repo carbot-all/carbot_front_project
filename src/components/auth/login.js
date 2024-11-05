@@ -24,15 +24,18 @@ const Login = () => {
 
     if (Object.keys(newErrors).length === 0) {
       console.log('로그인 요청');
-      // 로그인 요청 URL 및 데이터
+
+      // 딜러 또는 일반 사용자에 따른 로그인 데이터 설정
+      const loginData = isDealerLogin
+        ? { dealer_id: username, dealer_pw: password }
+        : { customer_id: username, customer_pw: password };
+
       axios
         .post(
-          `http://localhost:8001/${isDealerLogin ? 'dealer_login' : 'login'}`,
-          {
-            // 엔드포인트에 맞는 필드 전달
-            dealer_id: isDealerLogin ? username : undefined,
-            dealer_pw: isDealerLogin ? password : undefined,
-          }
+          `http://localhost:8001/${
+            isDealerLogin ? 'dealer_login' : 'customer_login'
+          }`,
+          loginData
         )
         .then((response) => {
           alert('로그인에 성공했습니다.');
@@ -49,62 +52,35 @@ const Login = () => {
       <section className='login-container'>
         <div className='login-box'>
           <div className='login-box-text'>
-            <h1>{isDealerLogin ? '딜러 로그인' : '로그인'}</h1>
+            <h1>{isDealerLogin ? '딜러 로그인' : '고객 로그인'}</h1>
             <a href='#' className='corporate-login' onClick={toggleLoginMode}>
               {isDealerLogin ? '개인 로그인' : '딜러 로그인'}
             </a>
           </div>
 
           <div className='login-inputs'>
-            {isDealerLogin ? (
-              <>
-                <input
-                  type='text'
-                  placeholder='사원번호 입력'
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className={errors.username ? 'login-error-input' : ''}
-                />
-                {errors.username && (
-                  <p className='login-error-message'>{errors.username}</p>
-                )}
-                <input
-                  type='password'
-                  placeholder='비밀번호 입력'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={errors.password ? 'login-error-input' : ''}
-                />
-                {errors.password && (
-                  <p className='login-error-message'>{errors.password}</p>
-                )}
-              </>
-            ) : (
-              <>
-                <input
-                  type='text'
-                  placeholder='아이디 입력'
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className={errors.username ? 'login-error-input' : ''}
-                />
-                {errors.username && (
-                  <p className='login-error-message'>{errors.username}</p>
-                )}
-                <input
-                  type='password'
-                  placeholder='비밀번호 입력'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={errors.password ? 'login-error-input' : ''}
-                />
-                {errors.password && (
-                  <p className='login-error-message'>{errors.password}</p>
-                )}
-              </>
+            <input
+              type='text'
+              placeholder={isDealerLogin ? '사원번호 입력' : '고객 로그인'}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className={errors.username ? 'login-error-input' : ''}
+            />
+            {errors.username && (
+              <p className='login-error-message'>{errors.username}</p>
+            )}
+            <input
+              type='password'
+              placeholder='비밀번호 입력'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={errors.password ? 'login-error-input' : ''}
+            />
+            {errors.password && (
+              <p className='login-error-message'>{errors.password}</p>
             )}
             <button className='login-button' onClick={handleLogin}>
-              {isDealerLogin ? '딜러 로그인' : '로그인'}
+              {isDealerLogin ? '딜러 로그인' : '고객 로그인'}
             </button>
           </div>
 

@@ -7,6 +7,25 @@ const FindId = () => {
   const [errors, setErrors] = useState({ name: false, email: false });
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
 
+  const findId = (e) => {
+    e.preventDefault();
+
+    const loginData = {
+      customer_name: customer_name,
+      cumstomer_email: pcumstomer_email,
+    };
+
+    axios
+      .post('http://localhost:8001/find_id', loginData)
+      .then((response) => {
+        alert('로그인에 성공했습니다.');
+        navigate('/login');
+      })
+      .catch((error) => {
+        setError(error.response?.data?.message || '로그인에 실패했습니다.');
+      });
+  };
+
   const handleValidation = () => {
     const newErrors = {
       name: name.trim() === '',
@@ -58,7 +77,9 @@ const FindId = () => {
           )}
 
           <div className='findID-button'>
-            <button type='submit'>확인</button>
+            <button type='submit' onClick={findId}>
+              확인
+            </button>
           </div>
         </form>
       </div>
