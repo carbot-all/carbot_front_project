@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import './FindID.css';
+import React, { useState } from "react";
+import "./FindID.css";
+import axios from "axios";
 
 const FindId = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({ name: false, email: false });
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
 
@@ -11,25 +12,25 @@ const FindId = () => {
     e.preventDefault();
 
     const loginData = {
-      customer_name: customer_name,
-      cumstomer_email: pcumstomer_email,
+      customer_name: name,
+      cumstomer_email: email,
     };
 
     axios
-      .post('http://localhost:8001/find_id', loginData)
+      .post("http://localhost:8001/find_id", loginData)
       .then((response) => {
-        alert('로그인에 성공했습니다.');
-        navigate('/login');
+        alert("로그인에 성공했습니다.");
+        navigator("/login");
       })
       .catch((error) => {
-        setError(error.response?.data?.message || '로그인에 실패했습니다.');
+        setErrors(error.response?.data?.message || "로그인에 실패했습니다.");
       });
   };
 
   const handleValidation = () => {
     const newErrors = {
-      name: name.trim() === '',
-      email: email.trim() === '',
+      name: name.trim() === "",
+      email: email.trim() === "",
     };
     setErrors(newErrors);
 
@@ -48,36 +49,36 @@ const FindId = () => {
   };
 
   return (
-    <div className='findID-container'>
-      <div className='findID-box'>
+    <div className="findID-container">
+      <div className="findID-box">
         <h1>아이디 찾기</h1>
-        <form onSubmit={handleSubmit} className='input-name'>
+        <form onSubmit={handleSubmit} className="input-name">
           <p>이름</p>
           <input
-            type='text'
-            placeholder='이름 입력'
+            type="text"
+            placeholder="이름 입력"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className={errors.name ? 'input-error' : ''}
+            className={errors.name ? "input-error" : ""}
           />
           {errors.name && (
-            <span className='error-text'>이름을 입력해 주세요.</span>
+            <span className="error-text">이름을 입력해 주세요.</span>
           )}
 
           <p>이메일</p>
           <input
-            type='email'
-            placeholder='이메일 입력'
+            type="email"
+            placeholder="이메일 입력"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={errors.email ? 'input-error' : ''}
+            className={errors.email ? "input-error" : ""}
           />
           {errors.email && (
-            <span className='error-text'>이메일을 입력해 주세요.</span>
+            <span className="error-text">이메일을 입력해 주세요.</span>
           )}
 
-          <div className='findID-button'>
-            <button type='submit' onClick={findId}>
+          <div className="findID-button">
+            <button type="submit" onClick={findId}>
               확인
             </button>
           </div>
@@ -86,8 +87,8 @@ const FindId = () => {
 
       {/* 모달창 표시 */}
       {isModalOpen && (
-        <div className='modal-overlay' onClick={closeModal}>
-          <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>아이디 안내</h2>
 
             <button onClick={closeModal}>닫기</button>

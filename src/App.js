@@ -41,6 +41,7 @@ const App = () => {
             <Route path="/CarSelect" element={<CarSelect />} />
             <Route path="/AdminLogin" element={<AdminLogin />} />
             <Route path="/AdminDashboard" element={<AdminDashboard />} />
+            <Route path="/detail/:customer_id" element={<AdminDashboard />} />
           </Route>
         </Routes>
         <CallbotIcon />
