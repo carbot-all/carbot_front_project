@@ -9,30 +9,45 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const adminLogin = (e) => {
+  const handleAdminLogin = (e) => {
     e.preventDefault();
 
+    // 관리자 로그인 데이터
     const loginData = {
-      admin_id: username,
-      admin_pw: password,
+      username,
+      password,
+      userType: 'admin' // 관리자는 userType을 'admin'으로 설정
     };
 
     axios
-      .post('http://localhost:8001/admin_login', loginData)
+      .post('http://localhost:8001/login', loginData, {
+        withCredentials: true // 쿠키 전송을 위해 설정
+      })
       .then((response) => {
-        alert('로그인에 성공했습니다.');
-        navigate('/AdminDashboard'); // 성공 시 관리자 대시보드로 이동
+        const { token, userId, userType } = response.data;
+
+        if (token && token.split('.').length === 3) { // JWT 형식 확인
+          sessionStorage.setItem('token', token); // JWT를 sessionStorage에 저장
+          sessionStorage.setItem('userId', userId); // userId 저장
+          sessionStorage.setItem('userType', userType); // userType 저장
+
+          alert('관리자 로그인에 성공했습니다.');
+          navigate('/AdminDashboard'); // 성공 시 관리자 대시보드로 이동
+        } else {
+          console.error("Invalid token format");
+        }
       })
       .catch((error) => {
         setError(error.response?.data?.message || '로그인에 실패했습니다.');
       });
   };
 
+
   return (
     <div className='AdminLogin-container'>
       <div className='AdminLogin-box'>
         <h2 className='AdminLogin-title'>관리자 로그인</h2>
-        <form onSubmit={adminLogin}>
+        <form onSubmit={handleAdminLogin}>
           <div className='AdminLogin-input-group'>
             <label htmlFor='username'>아이디 입력</label>
             <input
