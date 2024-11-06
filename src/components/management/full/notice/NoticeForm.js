@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
-import './NoticeForm.css';
+import React, { useState } from "react";
+import "./NoticeForm.css";
+import axios from "axios";
 
-const NoticeForm = ({ onClose, onSubmit }) => {
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('공지');
-  const [content, setContent] = useState('');
+const NoticeForm = ({ onClose, onSubmit, admin_id }) => {
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("공지");
+  const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Admin ID:", admin_id);
     const newNotice = {
-      title,
-      category,
-      author: '관리자',
-      date: new Date().toISOString().split('T')[0],
-      content,
+      notice_title: title,
+      notice_category: category,
+      notice_content: content,
     };
-    onSubmit(newNotice); // 등록 처리
+
+    try {
+      await axios.post(
+        `http://localhost:8001/add_notice/${admin_id}`,
+        newNotice
+      );
+      onSubmit(newNotice);
+      onClose();
+    } catch (error) {
+      console.error("Error adding notice:", error);
+    }
   };
 
   return (
