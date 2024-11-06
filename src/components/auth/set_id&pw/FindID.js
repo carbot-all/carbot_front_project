@@ -1,47 +1,25 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
-import "./FindID.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-=======
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './FindID.css';
->>>>>>> eadd257ef74adfee32534e4342fc40e7496f8ccc
+import "./FindID.css";
 
 const FindId = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({ name: false, email: false });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userId, setUserId] = useState(''); // 찾은 아이디 상태 관리
-  const [error, setError] = useState(''); // 서버 오류 메시지
+  const [userId, setUserId] = useState(""); // 찾은 아이디 상태 관리
+  const [error, setError] = useState(""); // 서버 오류 메시지
 
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-    const loginData = {
-      customer_name: name,
-      cumstomer_email: email,
-    };
-
-    axios
-      .post("http://localhost:8001/find_id", loginData)
-      .then((response) => {
-        alert("로그인에 성공했습니다.");
-        navigator("/login");
-      })
-      .catch((error) => {
-        setErrors(error.response?.data?.message || "로그인에 실패했습니다.");
-      });
-=======
   const findId = async () => {
     if (!name || !email) {
-      console.error('Name or email is missing');
+      console.error("Name or email is missing");
       return; // name과 email이 없으면 함수 종료
     }
 
-    console.log('Name:', name, 'Email:', email); // 디버깅 로그
+    console.log("Name:", name, "Email:", email); // 디버깅 로그
 
     const findIdData = {
       customer_name: name,
@@ -50,19 +28,18 @@ const FindId = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8001/find_id',
+        "http://localhost:8001/find_id",
         findIdData
       );
       setUserId(response.data.userId); // 서버 응답에서 userId 가져오기
       setIsModalOpen(true); // 모달 열기
     } catch (error) {
       console.error(
-        '아이디 찾기 오류:',
+        "아이디 찾기 오류:",
         error.response?.data?.message || error.message
       );
-      setError(error.response?.data?.message || '아이디 찾기에 실패했습니다.');
+      setError(error.response?.data?.message || "아이디 찾기에 실패했습니다.");
     }
->>>>>>> eadd257ef74adfee32534e4342fc40e7496f8ccc
   };
 
   const handleValidation = () => {
@@ -77,21 +54,21 @@ const FindId = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('폼 제출됨');
+    console.log("폼 제출됨");
 
     if (handleValidation()) {
-      console.log('유효성 검사 통과, 아이디 찾기 함수 호출');
+      console.log("유효성 검사 통과, 아이디 찾기 함수 호출");
       findId(); // 유효성 검사를 통과하면 아이디 찾기 함수 호출
     } else {
-      console.log('유효성 검사 실패');
+      console.log("유효성 검사 실패");
     }
   };
 
   const closeModal = () => {
     setIsModalOpen(false); // 모달 닫기
-    setUserId(''); // 아이디 초기화
-    setError(''); // 오류 메시지 초기화
-    navigate('/login');
+    setUserId(""); // 아이디 초기화
+    setError(""); // 오류 메시지 초기화
+    navigate("/login");
   };
 
   return (
@@ -123,15 +100,8 @@ const FindId = () => {
             <span className="error-text">이메일을 입력해 주세요.</span>
           )}
 
-<<<<<<< HEAD
           <div className="findID-button">
-            <button type="submit" onClick={findId}>
-              확인
-            </button>
-=======
-          <div className='findID-button'>
-            <button type='submit'>확인</button>
->>>>>>> eadd257ef74adfee32534e4342fc40e7496f8ccc
+            <button type="submit">확인</button>
           </div>
         </form>
       </div>
@@ -144,7 +114,7 @@ const FindId = () => {
             {userId ? (
               <p>찾은 아이디: {userId}</p>
             ) : (
-              <p>{error || '아이디를 찾을 수 없습니다.'}</p>
+              <p>{error || "아이디를 찾을 수 없습니다."}</p>
             )}
             <button onClick={closeModal}>닫기</button>
           </div>
