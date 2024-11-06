@@ -32,6 +32,7 @@ const App = () => {
             <Route path="/MainCarInfo/Grandeur" element={<Grandeur />} />
             <Route path="/MainCarInfo/Palisade" element={<Palisade />} />
             <Route path="/Notification" element={<Notification />} />
+            {/* 추가 사항 */}
             <Route path="/notification/:notice_no" element={<Notification />} />
             <Route path="/Mypage" element={<Mypage />} />
             <Route path="/login" element={<Login />} />
