@@ -195,62 +195,33 @@ const Join = () => {
             )}
           </div>
 
-          {/* 성별/차량 보유 여부 박스 */}
-          <div className='gender-car-ownership-box'>
-            <div className='checkbox-group'>
-              {errors.gender && (
-                <p className='join-error-message'>{errors.gender}</p>
-              )}
-              <label>성별:</label>
+          {/* 성별 체크박스 */}
+          <div className='checkbox-group'>
+            {errors.gender && (
+              <p className='join-error-message'>{errors.gender}</p>
+            )}
+            <label>성별:</label>
 
-              <label>
-                <input
-                  type='radio'
-                  name='gender'
-                  value='남자'
-                  checked={formData.gender === '남자'}
-                  onChange={() => handleGenderChange('남자')}
-                />{' '}
-                남자
-              </label>
-              <label>
-                <input
-                  type='radio'
-                  name='gender'
-                  value='여자'
-                  checked={formData.gender === '여자'}
-                  onChange={() => handleGenderChange('여자')}
-                />{' '}
-                여자
-              </label>
-            </div>
-
-            {/* <div className='checkbox-group'>
-              {errors.carOwnership && (
-                <p className='join-error-message'>{errors.carOwnership}</p>
-              )}
-              <label>차량 보유 여부:</label>
-              <label>
-                <input
-                  type='radio'
-                  name='carOwnership'
-                  value='보유'
-                  checked={formData.carOwnership === '보유'}
-                  onChange={() => handleCarOwnershipChange('보유')}
-                />{' '}
-                보유
-              </label>
-              <label>
-                <input
-                  type='radio'
-                  name='carOwnership'
-                  value='미보유'
-                  checked={formData.carOwnership === '미보유'}
-                  onChange={() => handleCarOwnershipChange('미보유')}
-                />{' '}
-                미보유
-              </label>
-            </div> */}
+            <label>
+              <input
+                type='radio'
+                name='gender'
+                value='남자'
+                checked={formData.gender === '남자'}
+                onChange={() => handleGenderChange('남자')}
+              />{' '}
+              남자
+            </label>
+            <label>
+              <input
+                type='radio'
+                name='gender'
+                value='여자'
+                checked={formData.gender === '여자'}
+                onChange={() => handleGenderChange('여자')}
+              />{' '}
+              여자
+            </label>
           </div>
 
           {/* 생년월일 선택 추가 */}

@@ -58,19 +58,18 @@
   gap: 20px;
   padding: 5px;
   margin-bottom: 20px;
+  font-size: 14px;
 }
 
 /* Checkbox group */
-.gender-box {
-  margin-top: 10px;
-  padding: 5px;
-}
 .checkbox-group {
   display: flex;
   align-items: center;
-  gap: 20px;
-  font-size: 16px;
-  margin-bottom: 15px;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 5px;
+  font-size: 14px;
 }
 
 .checkbox-group label {
