@@ -18,6 +18,7 @@ import AdminDashboard from './components/management/full/AdminDashboard';
 import Avante from './components/main/MainCarInfo/Avante';
 import Grandeur from './components/main/MainCarInfo/Grandeur';
 import Palisade from './components/main/MainCarInfo/Palisade';
+import DealerDashboard from './components/dealer/DealerDashboard';
 
 const App = () => {
   return (
@@ -31,6 +32,8 @@ const App = () => {
             <Route path='/MainCarInfo/Grandeur' element={<Grandeur />} />
             <Route path='/MainCarInfo/Palisade' element={<Palisade />} />
             <Route path='/Notification' element={<Notification />} />
+            {/* 추가 사항 */}
+            <Route path='/notification/:notice_no' element={<Notification />} />
             <Route path='/Mypage' element={<Mypage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/join' element={<Join />} />
@@ -40,6 +43,7 @@ const App = () => {
             <Route path='/CarInfo' element={<CarInfo />} />
             <Route path='/CarSelect' element={<CarSelect />} />
             <Route path='/AdminLogin' element={<AdminLogin />} />
+            <Route path='/DealerDashboard' element={<DealerDashboard />} />
             <Route path='/AdminDashboard' element={<AdminDashboard />} />
             <Route path='/detail/:customer_id' element={<AdminDashboard />} />
           </Route>
