@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
-import consultationsData from './consultations.json';
-import Consultation from '../modal/Consultations';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './ConsultationManagement.css';
 
 const ConsultationManagement = () => {
-  const [consultations] = useState(consultationsData);
+  const [consultations, setConsultations] = useState([]);
   const [selectedConsultation, setSelectedConsultation] = useState(null);
 
-  const handleConsultationClick = (consultation) => {
-    setSelectedConsultation(consultation);
+  useEffect(() => {
+    // 백엔드의 consultUsers API 호출
+    axios
+      .get('http://localhost:8001/api/admin/consultUsers')
+      .then((response) => {
+        setConsultations(response.data.users);
+      })
+      .catch((error) => {
+        console.error('Error fetching consultations data:', error);
+      });
+  }, []);
+
+  const handleConsultationClick = async (consultationId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8001/api/admin/consultUsers/${consultationId}`
+      );
+      setSelectedConsultation(response.data.consultation);
+    } catch (error) {
+      console.error('Error fetching consultation details:', error);
+    }
   };
 
   const handleCloseModal = () => {
@@ -16,9 +34,9 @@ const ConsultationManagement = () => {
   };
 
   return (
-    <div className="consultation-management-container">
-      <h2 className="consultation-management-title">상담관리</h2>
-      <table className="consultation-table">
+    <div className='consultation-management-container'>
+      <h2 className='consultation-management-title'>상담관리</h2>
+      <table className='consultation-table'>
         <thead>
           <tr>
             <th>번호</th>
@@ -29,30 +47,24 @@ const ConsultationManagement = () => {
         </thead>
         <tbody>
           {consultations.map((consultation, index) => (
-            <tr key={consultation.id}>
+            <tr key={consultation.custom_consult_no}>
               <td>{index + 1}</td>
               <td>
                 <button
-                  className="consultation-status-button"
-                  onClick={() => handleConsultationClick(consultation)}
+                  className='consultation-customer-name'
+                  onClick={() =>
+                    handleConsultationClick(consultation.custom_consult_no)
+                  }
                 >
-                  {consultation.status}
+                  {consultation.customer_name}
                 </button>
               </td>
-              <td>{consultation.author}</td>
-              <td>{consultation.date}</td>
+              <td>{consultation.dealer_name}</td>
+              <td>{new Date(consultation.created_at).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>
       </table>
-
-      {/* 상담 상세 모달 */}
-      {selectedConsultation && (
-        <Consultation
-          consultation={selectedConsultation}
-          onClose={handleCloseModal}
-        />
-      )}
     </div>
   );
 };
