@@ -67,7 +67,11 @@ const Login = () => {
             sessionStorage.setItem('userType', userType); // userType 저장
 
             alert('로그인에 성공했습니다.');
-            navigate('/'); // 로그인 성공 시 홈으로 이동
+            if (userType === 'dealer') {
+              navigate('/DealerDashboard');
+            } else if (userType == 'customer') {
+              navigate('/Mypage');
+            }
           } else {
             console.error("Invalid token format");
           }
