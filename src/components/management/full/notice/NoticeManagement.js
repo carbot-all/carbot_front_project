@@ -1,13 +1,54 @@
-import React, { useState } from 'react';
-import noticesData from './notices.json';
-import NoticeForm from './NoticeForm';
-import NoticeDetail from './NoticeDetail';
-import './NoticeManagement.css';
+import React, { useEffect, useState } from "react";
+import NoticeForm from "./NoticeForm";
+import NoticeDetail from "./NoticeDetail";
+import "./NoticeManagement.css";
+import axios from "axios";
 
 const NoticeManagement = () => {
-  const [notices, setNotices] = useState(noticesData);
+  const [notices, setNotices] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedNotice, setSelectedNotice] = useState(null);
+  const admin_id = localStorage.getItem("admin_id");
+
+  // 컴포넌트가 처음 로드될 때 공지사항을 가져옴
+  useEffect(() => {
+    fetchNotices(); // 공지사항 데이터 불러오기
+  }, []);
+
+  // 공지사항 데이터를 백엔드에서 가져오는 함수
+  const fetchNotices = async () => {
+    try {
+      const response = await axios.get("http://localhost:8001/notices");
+      setNotices(response.data); // 응답 데이터로 상태 업데이트
+    } catch (error) {
+      console.error("Error fetching notices:", error);
+    }
+  };
+
+  // 공지사항 추가 후 리스트 업데이트
+  const handleFormSubmit = async (newNotice) => {
+    try {
+      await axios.post(
+        `http://localhost:8001/add_notice/${admin_id}`,
+        newNotice
+      );
+      fetchNotices(); // 공지사항 추가 후 최신 데이터 다시 가져오기
+      setIsFormOpen(false);
+    } catch (error) {
+      console.error("Error adding notice:", error);
+    }
+  };
+
+  // 공지사항 삭제 후 리스트 업데이트
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8001/notices/${id}`);
+      fetchNotices(); // 삭제 후 공지사항 데이터 다시 가져오기
+      setSelectedNotice(null);
+    } catch (error) {
+      console.error("Error deleting notice:", error);
+    }
+  };
 
   const handleFormOpen = () => {
     setSelectedNotice(null); // 공지사항 작성 모드로 설정
@@ -20,22 +61,12 @@ const NoticeManagement = () => {
     setSelectedNotice(notice); // 공지사항 조회+수정+삭제 모드로 설정
   };
 
-  const handleFormSubmit = (newNotice) => {
-    setNotices([...notices, { ...newNotice, id: notices.length + 1 }]);
-    setIsFormOpen(false);
-  };
-
   const handleUpdate = (updatedNotice) => {
     setNotices(
       notices.map((notice) =>
         notice.id === updatedNotice.id ? updatedNotice : notice
       )
     );
-    setSelectedNotice(null);
-  };
-
-  const handleDelete = (id) => {
-    setNotices(notices.filter((notice) => notice.id !== id));
     setSelectedNotice(null);
   };
 
@@ -77,7 +108,11 @@ const NoticeManagement = () => {
 
       {/* 공지사항 작성 모달 */}
       {isFormOpen && (
-        <NoticeForm onClose={handleFormClose} onSubmit={handleFormSubmit} />
+        <NoticeForm
+          onClose={handleFormClose}
+          onSubmit={handleFormSubmit}
+          admin_id={admin_id}
+        />
       )}
 
       {/* 공지사항 상세 조회/수정/삭제 모달 */}
