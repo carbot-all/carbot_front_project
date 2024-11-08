@@ -157,16 +157,13 @@
   font-weight: bold;
 }
 
-.content-area {
-  width: 400px;
-  padding: 20px;
-}
-
 .profile-edit-container,
 .profile-container {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 400px;
+  padding: 20px;
 }
 
 .editInfo-input-group p {
