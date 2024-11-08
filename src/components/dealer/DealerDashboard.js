@@ -4,6 +4,7 @@ import "./DealerDashboard.css";
 import { MdOutlineClose } from "react-icons/md";
 
 const DealerDashboard = () => {
+  const [dealerName, setDealerName] = useState(""); // 딜러 이름 상태 추가
   const [selectedTab, setSelectedTab] = useState("상담 시작 전"); // 초기 화면을 "상담 시작 전"으로 설정
   const [applications, setApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
@@ -12,6 +13,19 @@ const DealerDashboard = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
+    const fetchDealerName = async () => {
+      const dealerId = sessionStorage.getItem("userId"); // 세션에서 dealerId 가져오기
+      try {
+        const response = await axios.get(
+          `http://localhost:8001/dealer_name/${dealerId}`
+        );
+        setDealerName(response.data.dealerName); // 딜러 이름 저장
+      } catch (error) {
+        console.error("Error fetching dealer name:", error);
+      }
+    };
+
+    fetchDealerName();
     fetchApplications();
   }, []);
 
@@ -136,7 +150,7 @@ const DealerDashboard = () => {
       </div>
 
       <div className="dealer-dashboard-content">
-        <h2>최카봇 딜러님의 상담페이지 입니다.</h2>
+        <h2>{dealerName} 딜러님의 상담페이지 입니다.</h2>
         <table>
           <thead>
             <tr>
