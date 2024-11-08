@@ -53,7 +53,7 @@ const Login = () => {
       };
 
       axios
-        .post("http://localhost:8001/login", loginData, {
+        .post("http://222.112.27.120:8001/login", loginData, {
           withCredentials: true, // 쿠키 전송을 위해 withCredentials 설정
         })
         .then((response) => {
@@ -65,13 +65,12 @@ const Login = () => {
             setIsLoggedIn(true);
             sessionStorage.setItem("userId", userId); // userId 저장
             sessionStorage.setItem("userType", userType); // userType 저장
-            alert('로그인에 성공했습니다.');
-            if (userType === 'dealer') {
-              navigate('/DealerDashboard');
-            } else if (userType == 'customer') {
-              navigate('/Mypage');
+            alert("로그인에 성공했습니다.");
+            if (userType === "dealer") {
+              navigate("/DealerDashboard");
+            } else if (userType == "customer") {
+              navigate("/Mypage");
             }
-
           } else {
             console.error("Invalid token format");
           }

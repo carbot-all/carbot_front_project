@@ -19,7 +19,7 @@ const DealerDashboard = () => {
       const dealerId = sessionStorage.getItem("userId");
       try {
         const response = await axios.get(
-          `http://localhost:8001/dealer_name/${dealerId}`
+          `http://222.112.27.120:8001/dealer_name/${dealerId}`
         );
         setDealerName(response.data.dealerName);
         setDealerNo(response.data.dealerNo);
@@ -38,7 +38,7 @@ const DealerDashboard = () => {
     const fetchConsultData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8001/dealer_consults/${dealerNo}`
+          `http://222.112.27.120:8001/dealer_consults/${dealerNo}`
         );
         setApplications(response.data);
       } catch (error) {
@@ -52,12 +52,12 @@ const DealerDashboard = () => {
   const openMemoModal = async (consultNo) => {
     try {
       const consultResponse = await axios.get(
-        `http://localhost:8001/consult_details/${consultNo}`
+        `http://222.112.27.120:8001/consult_details/${consultNo}`
       );
       setConsultDetails(consultResponse.data);
 
       const memoResponse = await axios.get(
-        `http://localhost:8001/memo/${consultNo}`
+        `http://222.112.27.120:8001/memo/${consultNo}`
       );
 
       const consultContent = memoResponse.data.consultContent || "";
@@ -89,12 +89,12 @@ const DealerDashboard = () => {
 
       if (selectedConsult.consult_hist_no) {
         // 기존 메모 수정
-        endpoint = `http://localhost:8001/consult_hist/${selectedConsult.consult_hist_no}`;
+        endpoint = `http://222.112.27.120:8001/consult_hist/${selectedConsult.consult_hist_no}`;
         method = "put";
         payload = { consult_content: memoContent };
       } else {
         // 새로운 메모 등록
-        endpoint = `http://localhost:8001/consult_hist`;
+        endpoint = `http://222.112.27.120:8001/consult_hist`;
         method = "post";
         payload = {
           custom_consult_no: selectedConsult.custom_consult_no,
@@ -128,7 +128,7 @@ const DealerDashboard = () => {
   const changeConsultStatus = async (consultNo) => {
     try {
       const response = await axios.put(
-        `http://localhost:8001/dealer_consults/complete/${consultNo}`
+        `http://222.112.27.120:8001/dealer_consults/complete/${consultNo}`
       );
       console.log("상담 상태 업데이트 성공:", response.data);
 

@@ -21,12 +21,15 @@ const Notification = () => {
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await fetch("http://localhost:8001/check_notice", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "http://222.112.27.120:8001/check_notice",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await response.json();
         console.log("Fetched notices:", data.notices);
         setNotices(data.notices || []);
@@ -46,7 +49,7 @@ const Notification = () => {
     const fetchNoticeDetail = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8001/check_notice/${notice_no}`,
+          `http://222.112.27.120:8001/check_notice/${notice_no}`,
           {
             method: "GET",
             headers: {
