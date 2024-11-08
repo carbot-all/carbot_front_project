@@ -90,3 +90,132 @@
   font-size: 16px;
   margin-top: 10px;
 }
+
+/* 회원정보 수정 */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.profile-container p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.password-input {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.confirm-button {
+  width: 300px;
+  padding: 10px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.confirm-button:hover {
+  background-color: gray;
+}
+
+/* 전체 폼 컨테이너 설정 */
+.my-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.button-group button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #333;
+}
+
+.button-group .active {
+  border-bottom: 0.5px solid black;
+  font-weight: bold;
+}
+
+.content-area {
+  width: 400px;
+  padding: 20px;
+}
+
+.profile-edit-container,
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.editInfo-input-group p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.editInfo-input-group input[type='text'],
+.editInfo-input-group input[type='email'],
+.editInfo-input-group input[type='password'],
+.editInfo-birth-group select,
+.editInfo-residence-group select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.editInfo-residence-group p {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* select의 옵션 스타일 */
+.editInfo-residence-group select option {
+  font-size: 10px;
+}
+
+/* 오류 메시지 스타일 */
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+/* 저장, 취소 버튼 */
+.editInfo-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.editInfo-save-button:hover {
+  background-color: gray;
+}
