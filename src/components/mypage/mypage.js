@@ -176,7 +176,7 @@ function MyPage() {
   // 수정 취소 함수
   const handleCancel = () => {
     alert("회원정보 수정을 취소합니다.");
-    navigate("/mypage");
+    navigate("/");
   };
 
   // 페이지에 따라 다른 콘텐츠 렌더링
