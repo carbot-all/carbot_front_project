@@ -81,21 +81,39 @@ function MyPage() {
   useEffect(() => {
     const fetchConsultationData = async () => {
       try {
-        const response = await fetch(
-          `http://222.112.27.120:8001/consultations/${userId}`
+        const storedUserId = sessionStorage.getItem("userId"); // 세션에서 userId 가져오기
+        if (!storedUserId) {
+          console.error("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+          navigate("/login");
+          return;
+        }
+
+        const response = await axios.get(
+          `http://222.112.27.120:8001/consultations/${storedUserId}`
         );
-        const data = await response.json();
-        setConsultationData(data);
+
+        if (response.status === 200) {
+          setConsultationData(response.data); // 상담 내역 데이터 상태 업데이트
+        } else {
+          console.error(
+            `상담 데이터를 가져오는 데 실패했습니다. 상태 코드: ${response.status}`
+          );
+          setConsultationData([]); // 실패 시 빈 배열로 초기화
+        }
       } catch (error) {
-        console.error("Error fetching consultation data:", error);
+        console.error(
+          "상담 내역 데이터를 가져오는 중 오류가 발생했습니다.",
+          error
+        );
+        setConsultationData([]); // 오류 발생 시 빈 배열로 초기화
       }
     };
 
     // 현재 페이지가 상담 내역 페이지일 때만 데이터 가져오기 실행
-    if (activePage === "consultation" && userId) {
+    if (activePage === "consultation") {
       fetchConsultationData();
     }
-  }, [activePage, userId]);
+  }, [activePage, navigate]);
 
   // 회원정보 수정 비밀번호 확인
   const handlePasswordSubmit = async (e) => {
