@@ -18,12 +18,12 @@
 - 사용자-딜러-관리자 페이지의 상호작용 플로우
 
 ## 개발 환경
-> github → 정책정의서
-> coding Conventions , commit conventions
-> Front : react
-> Back : node
-> DB: postgresql
-> Data : python
+- github → 정책정의서
+- coding Conventions , commit conventions
+- Front : react
+- Back : node
+- DB: postgresql
+- Data : python
 
 ## 화면 설계
 -사진 추가하기-
